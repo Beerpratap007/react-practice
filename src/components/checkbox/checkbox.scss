@@ -1,0 +1,41 @@
+.checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  
+    &-content {
+      border-radius: 4px;
+      display: flex;
+      align-items: self-end;
+      flex-wrap: nowrap;
+      padding: 5px 10px 5px 0;
+  
+      input {
+        margin-right: 5px;
+      }
+  
+      &:hover {
+        background: rgb(245, 245, 245);
+      }
+    }
+  
+    &-delete {
+      background: rgb(200, 200, 200);
+      border: none;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+  
+      &:hover {
+        background: rgb(172, 172, 172);
+      }
+    }
+  
+    &-checked {
+      opacity: .5;
+      text-decoration: line-through;
+    }
+  }
+  

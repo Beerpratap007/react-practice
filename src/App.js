@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { todosTemplate } from './utils/constant';
+import { TodosContext } from './utils/TodoContext';
+import { TodoList } from './components/todo-list/TodoList';
+import { TodoResults } from './components/todo-result/TodoResults';
+import { TodoForm } from './components/todo-form/TodoForm';
+
+import "./index.scss";
+
 
 function App() {
+  const [todos, setTodos] = useState(todosTemplate);
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <TodosContext.Provider value={{todos, setTodos}}>
+        <TodoList />
+        <TodoResults />
+        <TodoForm />
+      </TodosContext.Provider>
     </div>
   );
 }
