@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Checkbox } from "../checkbox/CheckBox";
 import { TodosContext } from "../../utils/TodoContext";
 import "./todo-list.scss";
+import EditTodoList from "./EditTodoList";
 
 export const TodoList = () => {
   const {todos, setTodos} = useContext(TodosContext);
@@ -33,15 +34,16 @@ export const TodoList = () => {
   };
 
 
-  const toggleCheck = (id) => {
-    // Toggle the checked property for the todo item with the given id
+  // Toggle the checked property for the todo item with the given id
+  const taskCheckBoxHandler = (id) => {
     const completedTodos = todos.map((item) => item.id === id ? { ...item, checked: !item.checked } : item);
     setTodos(completedTodos);
   };
 
+  //On enter button click checkbox should toggle
   const keyUpHandler = (e, id) => {
     if (e.keyCode === 13) {
-      toggleCheck(id);
+      taskCheckBoxHandler(id);
     }
   };
 
@@ -53,23 +55,19 @@ export const TodoList = () => {
           {todos.map((todoItem) => (
             <div key={todoItem.id} className="todo-item">
               {editingTaskId === todoItem.id ? (
-                <div className="todo-list-edit">
-                  <input 
-                    type="text" 
-                    value={editTaskValue} 
-                    onChange={(e) => setEditTaskValue(e.target.value)} 
-                  />
-                  <div className="todo-list-btns">
-                    <button onClick={() => saveEditedTask(todoItem.id)}>Save</button>
-                    <button onClick={() => cancelEditTask()}>Cancel</button>
-                  </div>
-                </div>
+                <EditTodoList
+                  editTaskValue={editTaskValue}
+                  setEditTaskValue={setEditTaskValue}
+                  saveEditedTask={saveEditedTask}
+                  cancelEditTask={cancelEditTask}
+                  todoItem={todoItem}
+                />
               ) : (
                 <Checkbox
                   key={todoItem.id}
                   label={todoItem.label}
                   checked={todoItem.checked}
-                  onClick={() => toggleCheck(todoItem.id)}
+                  onClick={() => taskCheckBoxHandler(todoItem.id)}
                   onKeyUp={(e) => keyUpHandler(e, todoItem.id)}
                   onEdit={() => editTaskHandler(todoItem.id, todoItem.label)}
                   onDelete={() => deleteTaskHandler(todoItem.id)}
@@ -85,29 +83,4 @@ export const TodoList = () => {
       )}
     </div>
   )
-
-  // return (
-  //   <div className="todo-list">
-  //     <span className="todo-list-title">Things to do - </span>
-  //     {todos?.length ? (
-  //       <div className="todo-list-content">
-  //         {todos.map((todoItem) => (
-  //           <Checkbox
-  //             key={todoItem.id}
-  //             label={todoItem.label}
-  //             checked={todoItem.checked}
-  //             onClick={() => toggleCheck(todoItem.id)}
-  //             onKeyUp={(e) => keyUpHandler(e, todoItem.id)}
-  //             onEdit={() => editTaskHandler(todoItem.id. todoItem.label)}
-  //             onDelete={() => deleteTaskHandler(todoItem.id)}
-  //           />
-  //         ))}
-  //       </div>
-  //     ) : (
-  //       <div className="no-todos">
-  //         Looks like you&apos;re absolutely free today!
-  //       </div>
-  //     )}
-  //   </div>
-  // );
 };
