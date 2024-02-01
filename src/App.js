@@ -10,7 +10,7 @@ import { useCount } from './hooks/useCount';
 import { useFetch } from './hooks/useFetch';
 import useTable from './hooks/useTable';
 
-import { apiUrl } from './constant/constant';
+import { apiUrl } from './utils/constant';
 
 import "./index.scss";
 import AuthExample from './components/auth/auth';

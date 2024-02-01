@@ -1,3 +1,5 @@
+export const apiUrl = "https://jsonplaceholder.typicode.com/users";
+
 export const todosTemplate = [{
       id: 0,
       label: "Fix an ability to display all tasks",
